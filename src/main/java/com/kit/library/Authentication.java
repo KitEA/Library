@@ -13,7 +13,7 @@ public class Authentication {
         try {
             int i = 0;
             BufferedReader reader = new BufferedReader(new FileReader("AuthenticationData.txt"));
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 if (line.equals(login)) {
                     i++;

@@ -389,11 +389,13 @@ public class BookUI {
                 for (int i : firstQuestTable.getSelectedRows()) {
                     for (int j = 0; j < countColumns; j++) {
                         if ((countColumns - 1) == j) {
-                            int numberOfCopies = Integer.parseInt((String) ((((Vector) tableModel.getDataVector().elementAt(i)).elementAt(j))));
+                            int numberOfCopies = Integer.parseInt(
+                                    (String) ((((Vector) tableModel.getDataVector().elementAt(i)).elementAt(j))));
                             numberOfCopies--;
                             tableModel.setValueAt(Integer.toString(numberOfCopies), i, j);
                         } else {
-                            content[stringCount] = (String) ((((Vector) tableModel.getDataVector().elementAt(i)).elementAt(j)));
+                            content[stringCount] =
+                                    (String) ((((Vector) tableModel.getDataVector().elementAt(i)).elementAt(j)));
                         }
 
                         stringCount++;

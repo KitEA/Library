@@ -5,7 +5,6 @@ import com.sun.mail.smtp.SMTPTransport;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.Security;
@@ -16,12 +15,12 @@ public class GoogleMail {
     private GoogleMail() {
     }
 
-    public static void Send(final String username, final String password, String recipientEmail,
+    public static void send(final String username, final String password, String recipientEmail,
                             String title, String message) throws MessagingException {
-        GoogleMail.Send(username, password, recipientEmail, "", title, message);
+        send(username, password, recipientEmail, "", title, message);
     }
 
-    public static void Send(final String username, final String password, String recipientEmail,
+    public static void send(final String username, final String password, String recipientEmail,
                             String ccEmail, String title, String message) throws MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

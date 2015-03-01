@@ -13,7 +13,7 @@ public class BookShopLoad {
     public void loadBookShop(File file, DefaultTableModel table) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = null;
+            String line;
             for (int i = 0; (line = reader.readLine()) != null; i++) {
                 lines[i] = line;
                 counter++;

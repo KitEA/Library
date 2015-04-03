@@ -1,5 +1,7 @@
 package com.kit.library;
 
+import com.kit.library.autentification.AuthenticationList;
+import com.kit.library.autentification.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,7 +82,7 @@ public class LibraryTest {
         Serializer serializer = new Persister();
 
         AuthenticationList authenticationList = new AuthenticationList();
-        authenticationList.setList(new ArrayList<User>());
+        authenticationList.setList(new ArrayList<>());
 
         User user1 = new User("John", "Galvinski", "JohnG", "243get", "JG@mail.ru");
         authenticationList.getList().add(user1);

@@ -1,4 +1,4 @@
-package com.kit.library;
+package com.kit.library.autentification;
 
 import org.simpleframework.xml.ElementList;
 

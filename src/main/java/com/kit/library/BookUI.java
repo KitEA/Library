@@ -1,5 +1,8 @@
 package com.kit.library;
 
+import com.kit.library.autentification.Authentication;
+import com.kit.library.autentification.User;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -24,8 +27,8 @@ public class BookUI {
     private JTextField login = new JTextField(10);
     private JTextField password = new JTextField(10);
 
-    private JTextField FirstName = new JTextField(10);
-    private JTextField SecondName = new JTextField(10);
+    private JTextField firstName = new JTextField(10);
+    private JTextField secondName = new JTextField(10);
     private JTextField loginChoose = new JTextField(10);
     private JTextField passwordChoose = new JTextField(10);
     private JTextField emailChoose = new JTextField(10);
@@ -50,11 +53,9 @@ public class BookUI {
     private JTextField txtField6;
 
     private Authentication authentication;
-    private Registration registration;
 
-    public BookUI(Authentication authenticationForm, Registration registrationForm) {
+    public BookUI(Authentication authenticationForm) {
         this.authentication = authenticationForm;
-        this.registration = registrationForm;
 
         authenticationF = new JFrame("Authentication");
         registrationF = new JFrame("Registration");
@@ -108,10 +109,10 @@ public class BookUI {
 
         JLabel firstNameLabel = new JLabel("First name");
         panelR.add(firstNameLabel);
-        panelR.add(FirstName);
+        panelR.add(firstName);
         JLabel secondNameLabel = new JLabel("Second name");
         panelR.add(secondNameLabel);
-        panelR.add(SecondName);
+        panelR.add(secondName);
         JLabel loginChooseLabel = new JLabel("Login");
         panelR.add(loginChooseLabel);
         panelR.add(loginChoose);
@@ -430,7 +431,14 @@ public class BookUI {
 
     class RegisterButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            registration.registrate(FirstName.getText(), SecondName.getText(), loginChoose.getText(), passwordChoose.getText(), emailChoose.getText());
+
+            authentication.register(
+                    new User(firstName.getText(),
+                            secondName.getText(),
+                            loginChoose.getText(),
+                            passwordChoose.getText(),
+                            emailChoose.getText()));
+
             registrationF.setVisible(false);
             authenticationF.setVisible(true);
         }

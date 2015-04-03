@@ -1,4 +1,4 @@
-package com.kit.library;
+package com.kit.library.autentification;
 
 import com.google.common.base.MoreObjects;
 import org.simpleframework.xml.Element;

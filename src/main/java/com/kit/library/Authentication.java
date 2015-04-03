@@ -1,57 +1,55 @@
 package com.kit.library;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+
+import java.io.File;
 
 public class Authentication {
 
-    private boolean userExist = false;
-    private boolean userIsAdmin = false;
-
-    public boolean authentication(String login, String password) {
-        try {
-            int i = 0;
-            BufferedReader reader = new BufferedReader(new FileReader("AuthenticationData.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.equals(login)) {
-                    i++;
-                } else if (line.equals(password)) {
-                    i++;
-                }
-            }
-            reader.close();
-
-            if (i == 2) {
-                userExist = true;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return userExist;
+    /*private Path getResource(String fileName) throws Exception {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL url = classLoader.getResource(fileName);
+        return Paths.get(url.toURI());                  //todo: should I care about it?
     }
 
-    public boolean adminAuthentication(String login, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("AuthenticationData.txt"))) {
-            int j = 0;
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("Kit") && line.equals(login)) {
-                    j++;
-                } else if (line.equals("1237qua") && line.equals(password)) {
-                    j++;
-                }
-            }
-
-            if (j == 2) {
-                userIsAdmin = true;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    public boolean authenticate(String login, String password) {
+        try {
+            Path resource = getResource("AuthenticationData.txt");
+            List<String> list = Files.lines(resource).collect(Collectors.toList());
+            return list.contains(login) && list.contains(password);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return userIsAdmin;
+
+        return false;
+    }
+
+    public boolean isAdmin(){
+        return authenticate("Kit", "1237qua");
+    }*/
+
+    public boolean authenticate(String login, String password) {
+        try {
+            Serializer serializer = new Persister();
+            File source = new File("userList.xml");
+
+            AuthenticationList authenticationList = serializer.read(AuthenticationList.class, source);
+
+            User user = authenticationList.getUserByLogin(login);
+
+            if(user != null && user.getPassword().equals(password)){
+                return true;
+            }
+            else return false;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isAdmin(){
+        return authenticate("Kit", "1237qua");
     }
 }

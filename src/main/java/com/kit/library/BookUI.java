@@ -52,8 +52,6 @@ public class BookUI {
     private Authentication authentication;
     private Registration registration;
 
-    private int firstRegistration = 0;
-
     public BookUI(Authentication authenticationForm, Registration registrationForm) {
         this.authentication = authenticationForm;
         this.registration = registrationForm;
@@ -73,7 +71,6 @@ public class BookUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 authenticationF.setVisible(false);
-                firstRegistration++;
                 registrationF.setVisible(true);
             }
         });
@@ -124,9 +121,6 @@ public class BookUI {
         JLabel emailChooseLabel = new JLabel("Email");
         panelR.add(emailChooseLabel);
         panelR.add(emailChoose);
-        JLabel emailPasswordLabel = new JLabel("Email Password");
-        panelR.add(emailPasswordLabel);
-        panelR.add(emailPassword);
 
         registrationF.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         registrationF.getContentPane().add(BorderLayout.NORTH, panelR);
@@ -419,8 +413,8 @@ public class BookUI {
         private BookShopLoad bookShopLoad = new BookShopLoad();
 
         public void actionPerformed(ActionEvent event) {
-            boolean userInBase = authentication.authentication(login.getText(), password.getText());
-            boolean userInAdminGroup = authentication.adminAuthentication(login.getText(), password.getText());
+            boolean userInBase = authentication.authenticate(login.getText(), password.getText());
+            boolean userInAdminGroup = authentication.isAdmin();
             if (userInAdminGroup) {
                 frame.setVisible(true);
                 authenticationF.setVisible(false);
@@ -436,11 +430,7 @@ public class BookUI {
 
     class RegisterButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            if (firstRegistration > 1) {
-                registration.registrate(FirstName.getText(), SecondName.getText(), loginChoose.getText(), passwordChoose.getText(), emailChoose.getText());
-            } else {
-                registration.registrate(FirstName.getText(), SecondName.getText(), loginChoose.getText(), passwordChoose.getText(), emailChoose.getText(), emailPassword.getText());
-            }
+            registration.registrate(FirstName.getText(), SecondName.getText(), loginChoose.getText(), passwordChoose.getText(), emailChoose.getText());
             registrationF.setVisible(false);
             authenticationF.setVisible(true);
         }

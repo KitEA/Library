@@ -11,8 +11,7 @@ public class BookShopLoad {
     int counter = 0;
 
     public void loadBookShop(File file, DefaultTableModel table) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             for (int i = 0; (line = reader.readLine()) != null; i++) {
                 lines[i] = line;
@@ -26,7 +25,6 @@ public class BookShopLoad {
                         new Object[]{lines[j], lines[j + 1], lines[j + 2], lines[j + 3], lines[j + 4], lines[j + 5]});
                 counter--;
             }
-            reader.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
